@@ -1,8 +1,12 @@
-import React from "react";
-import TriviaGame from "./components/TriviaGame";
+import React from 'react'
+import TriviaGame from './components/TriviaGame'
 
 function App() {
-  return <TriviaGame />;
+  return (
+    <div>
+      <TriviaGame></TriviaGame>
+    </div>
+  )
 }
 
-export default App;
+export default App
