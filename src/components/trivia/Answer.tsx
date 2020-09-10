@@ -26,10 +26,22 @@ class Answer extends Component<Props, State> {
           onChange={this._inputOnChangeHandler}
           placeholder={'type your answer here...'}
         ></input>
-        <button className={'skip'} onClick={() => onSubmitHandler('')}>
+        <button
+          className={'skip'}
+          onClick={() => {
+            onSubmitHandler('')
+            this.setState({ inputValue: '' })
+          }}
+        >
           SKIP
         </button>
-        <button className={'submit'} onClick={() => onSubmitHandler(this.state.inputValue)}>
+        <button
+          className={'submit'}
+          onClick={() => {
+            onSubmitHandler(this.state.inputValue)
+            this.setState({ inputValue: '' })
+          }}
+        >
           SUBMIT
         </button>
       </div>
