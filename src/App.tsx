@@ -1,5 +1,5 @@
 import React from 'react'
-import TriviaGame from './components/TriviaGame'
+import TriviaGame from './components/trivia/TriviaGame'
 
 function App() {
   return (
