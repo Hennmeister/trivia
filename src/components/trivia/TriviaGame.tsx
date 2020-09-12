@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import './trivia.css'
 import axios from '../../axios-instance'
 import Answer from './Answer'
-import Score from './Score'
+import GameStats from './GameStats'
 
 interface Props {}
 
@@ -11,6 +11,7 @@ interface State {
   answer: string
   prevQuestionIds: Set<string>
   score: number
+  remainingSkips: number
 }
 
 class TriviaGame extends Component<Props, State> {
@@ -19,6 +20,7 @@ class TriviaGame extends Component<Props, State> {
     answer: '',
     prevQuestionIds: new Set<string>(),
     score: 0,
+    remainingSkips: 3,
   }
 
   componentDidMount() {
@@ -50,6 +52,16 @@ class TriviaGame extends Component<Props, State> {
     this._getRandomQuestion()
   }
 
+  _onSkipHandler = () => {
+    if (this.state.remainingSkips > 0) {
+      this.setState((prevProps) => {
+        this.setState({ remainingSkips: prevProps.remainingSkips - 1 })
+      })
+      return true
+    }
+    return false
+  }
+
   _isCorrectAnswer = (answer: string) => {
     let correctAnswer = this.state.answer.slice()
     if (correctAnswer.includes('(') && correctAnswer.charAt(correctAnswer.length - 1) === ')') {
@@ -64,13 +76,15 @@ class TriviaGame extends Component<Props, State> {
     )
   }
 
+  _onIncorrectAnswer = () => {}
+
   render() {
     return (
       <>
-        <Score score={this.state.score} />
+        <GameStats remainingSkips={this.state.remainingSkips} score={this.state.score} />
         <div className="wrapper">
           <text className="question">{this.state.question}</text>
-          <Answer onSubmitHandler={this._onSubmitAnswerHandler} />
+          <Answer onSkipHandler={this._onSkipHandler} onSubmitHandler={this._onSubmitAnswerHandler} />
         </div>
       </>
     )

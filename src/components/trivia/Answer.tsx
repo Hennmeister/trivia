@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 
 interface Props {
   onSubmitHandler: (answer: string) => void
+  onSkipHandler: () => boolean
 }
 
 interface State {
@@ -37,7 +38,7 @@ class Answer extends Component<Props, State> {
         <button
           className={'skip'}
           onClick={() => {
-            onSubmitHandler('')
+            this.props.onSkipHandler()
             this.setState({ inputValue: '' })
           }}
         >
