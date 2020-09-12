@@ -17,6 +17,13 @@ class Answer extends Component<Props, State> {
     this.setState({ inputValue: e.currentTarget.value })
   }
 
+  _onKeyDownHandler = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter') {
+      this.props.onSubmitHandler(this.state.inputValue)
+      this.setState({ inputValue: '' })
+    }
+  }
+
   render() {
     let { onSubmitHandler } = this.props
     return (
@@ -25,6 +32,7 @@ class Answer extends Component<Props, State> {
           value={this.state.inputValue}
           onChange={this._inputOnChangeHandler}
           placeholder={'type your answer here...'}
+          onKeyDown={this._onKeyDownHandler}
         ></input>
         <button
           className={'skip'}
