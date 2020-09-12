@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import './trivia.css'
 import axios from '../../axios-instance'
 import Answer from './Answer'
+import Score from './Score'
 
 interface Props {}
 
@@ -66,7 +67,7 @@ class TriviaGame extends Component<Props, State> {
   render() {
     return (
       <>
-        <text>{this.state.score}</text>
+        <Score score={this.state.score} />
         <div className="wrapper">
           <text className="question">{this.state.question}</text>
           <Answer onSubmitHandler={this._onSubmitAnswerHandler} />
