@@ -3,6 +3,7 @@
   font-size: 1.5em;
   max-width: 60vw;
   max-height: 65vh;
+  min-height: 10vh;
   text-align: center;
   background-color: white;
   color: black;
@@ -98,7 +99,7 @@ button {
 /* Animate Stat Changes */
 .skipChange {
   animation: shake 0.82s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
-  color: red;
+  color: red !important;
 }
 
 .scoreChange {
@@ -127,4 +128,54 @@ button {
   60% {
     transform: translate3d(4px, 0, 0);
   }
+}
+
+/* Timer */
+.timer {
+  position: fixed;
+  bottom: 5px;
+  right: 5px;
+  color: white;
+  font-size: 2em;
+}
+
+/* Lives */
+.heart {
+  position: fixed;
+  bottom: 45px;
+  right: 170px;
+  width: 50px;
+  height: 45px;
+}
+
+.heart:before,
+.heart:after {
+  position: absolute;
+  content: '';
+  left: 50px;
+  top: 0;
+  width: 50px;
+  height: 80px;
+  background: red;
+  border-radius: 50px 50px 0 0;
+  transform: rotate(-45deg);
+  transform-origin: 0 100%;
+}
+
+.heart:after {
+  left: 0;
+  transform: rotate(45deg);
+  transform-origin: 100% 100%;
+}
+
+.lives {
+  position: fixed;
+  right: 15px;
+  bottom: -10px;
+  color: white;
+  font-size: 6em;
+}
+
+.danger {
+  animation: shake 0.82s cubic-bezier(0.36, 0.07, 0.19, 0.97) infinite;
 }

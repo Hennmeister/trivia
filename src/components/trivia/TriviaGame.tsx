@@ -3,6 +3,8 @@ import './trivia.css'
 import axios from '../../axios-instance'
 import AnswerControls from './AnswerControls'
 import GameStats from './GameStats'
+import Timer from './Timer'
+import Lives from './Lives'
 
 interface Props {}
 
@@ -53,6 +55,7 @@ class TriviaGame extends Component<Props, State> {
   }
 
   _onSkipHandler = () => {
+    this._getRandomQuestion()
     if (this.state.remainingSkips > 0) {
       this.setState((prevProps) => {
         this.setState({ remainingSkips: prevProps.remainingSkips - 1 })
@@ -78,6 +81,8 @@ class TriviaGame extends Component<Props, State> {
 
   _onIncorrectAnswer = () => {}
 
+  _EndGame = () => {}
+
   render() {
     return (
       <>
@@ -90,6 +95,8 @@ class TriviaGame extends Component<Props, State> {
             isSkipDisabled={this.state.remainingSkips === 0}
           />
         </div>
+        {/*<Timer onTimerEnd={this._EndGame}/> */}
+        <Lives onNoLivesRemaining={this._EndGame}></Lives>
       </>
     )
   }
