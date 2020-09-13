@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import './trivia.css'
 import axios from '../../axios-instance'
-import Answer from './Answer'
+import AnswerControls from './AnswerControls'
 import GameStats from './GameStats'
 
 interface Props {}
@@ -84,7 +84,11 @@ class TriviaGame extends Component<Props, State> {
         <GameStats remainingSkips={this.state.remainingSkips} score={this.state.score} />
         <div className="wrapper">
           <text className="question">{this.state.question}</text>
-          <Answer onSkipHandler={this._onSkipHandler} onSubmitHandler={this._onSubmitAnswerHandler} />
+          <AnswerControls
+            onSkipHandler={this._onSkipHandler}
+            onSubmitHandler={this._onSubmitAnswerHandler}
+            isSkipDisabled={this.state.remainingSkips === 0}
+          />
         </div>
       </>
     )

@@ -3,13 +3,14 @@ import React, { Component } from 'react'
 interface Props {
   onSubmitHandler: (answer: string) => void
   onSkipHandler: () => boolean
+  isSkipDisabled: boolean
 }
 
 interface State {
   inputValue: string
 }
 
-class Answer extends Component<Props, State> {
+class AnswerControls extends Component<Props, State> {
   state = {
     inputValue: '',
   }
@@ -27,6 +28,7 @@ class Answer extends Component<Props, State> {
 
   render() {
     let { onSubmitHandler } = this.props
+    let skipButtonClasses = this.props.isSkipDisabled ? ['skip', 'disabled'] : ['skip']
     return (
       <div>
         <input
@@ -36,7 +38,8 @@ class Answer extends Component<Props, State> {
           onKeyDown={this._onKeyDownHandler}
         ></input>
         <button
-          className={'skip'}
+          disabled={this.props.isSkipDisabled}
+          className={skipButtonClasses.join(' ')}
           onClick={() => {
             this.props.onSkipHandler()
             this.setState({ inputValue: '' })
@@ -58,4 +61,4 @@ class Answer extends Component<Props, State> {
   }
 }
 
-export default Answer
+export default AnswerControls

@@ -1,4 +1,5 @@
 .question {
+  font-family: 'Overpass', sans-serif;
   font-size: 1.5em;
   max-width: 60vw;
   max-height: 65vh;
@@ -28,9 +29,8 @@ div.wrapper > * {
   margin: 8vh;
 }
 
-/* Answer Text Input */
+/* AnswerControls Input */
 input {
-  font-family: 'Bebas Neue', cursive;
   height: 7vh;
   width: 100%;
   text-align: center;
@@ -49,9 +49,8 @@ button:focus {
   outline: 0;
 }
 
-/* Answer Buttons */
+/* AnswerControls Buttons */
 button {
-  font-family: 'Bebas Neue', cursive;
   border: solid gray 1px;
   border-top: none;
   width: 50%;
@@ -77,10 +76,13 @@ button {
   background-color: darkred;
 }
 
+.disabled {
+  background-color: grey;
+}
+
 /* Score Styling */
 
 .score {
-  font-family: 'Bebas Neue', cursive;
   position: fixed;
   top: 2px;
   right: 8px;

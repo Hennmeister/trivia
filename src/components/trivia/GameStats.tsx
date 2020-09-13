@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import { setInterval } from 'timers'
 
 interface Props {
   score: number
@@ -18,6 +17,7 @@ class GameStats extends Component<Props, State> {
       animateScoreText: false,
     }
   }
+
   componentDidUpdate(prevProps: Props) {
     if (prevProps.remainingSkips !== this.props.remainingSkips) {
       this.setState({ animateSkipText: true })
