@@ -6,6 +6,7 @@ import Lives from './Lives'
 
 import { RequiredGameState, RequiredGameProps, Question } from '../../model'
 import { makeQuestionRequest } from '../../gameUtils'
+import Spinner from '../UI/Spinner'
 
 interface Props extends RequiredGameProps {}
 
@@ -75,7 +76,7 @@ class Survival extends Component<Props, State> {
   render() {
     let game =
       this.state.questionIndex === this.state.questions.length ? (
-        <text>LOADING</text>
+        <Spinner />
       ) : (
         <>
           <GameStats remainingSkips={this.state.remainingSkips} score={this.state.score} />
