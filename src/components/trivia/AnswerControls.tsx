@@ -1,8 +1,11 @@
+import classes from './trivia.module.css'
 import React, { Component } from 'react'
+import { Question } from '../../model'
 
 interface Props {
-  onSubmitHandler: (answer: string) => void
-  onSkipHandler: () => boolean
+  question: Question
+  onSubmitHandler: (isCorrect: boolean) => void
+  onSkipHandler: () => void
   isSkipDisabled: boolean
 }
 
@@ -11,32 +14,15 @@ interface State {
 }
 
 class AnswerControls extends Component<Props, State> {
-  state = {
-    inputValue: '',
-  }
-
-  _inputOnChangeHandler = (e: React.FormEvent<HTMLInputElement>) => {
-    this.setState({ inputValue: e.currentTarget.value })
-  }
-
-  _onKeyDownHandler = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === 'Enter') {
-      this.props.onSubmitHandler(this.state.inputValue)
-      this.setState({ inputValue: '' })
-    }
-  }
-
   render() {
-    let { onSubmitHandler } = this.props
-    let skipButtonClasses = this.props.isSkipDisabled ? ['skip', 'disabled'] : ['skip']
+    let { question, onSubmitHandler, onSkipHandler, isSkipDisabled } = this.props
+    let skipButtonClasses = this.props.isSkipDisabled ? [classes.skip, classes.disabled] : [classes.skip]
+    const answerButtons = question.answers.map((ans) => (
+      <button onClick={() => onSubmitHandler(ans.isCorrect)}>{ans.answer}</button>
+    ))
     return (
       <div>
-        <input
-          value={this.state.inputValue}
-          onChange={this._inputOnChangeHandler}
-          placeholder={'type your answer here...'}
-          onKeyDown={this._onKeyDownHandler}
-        ></input>
+        {answerButtons}
         <button
           disabled={this.props.isSkipDisabled}
           className={skipButtonClasses.join(' ')}
@@ -46,15 +32,6 @@ class AnswerControls extends Component<Props, State> {
           }}
         >
           SKIP
-        </button>
-        <button
-          className={'submit'}
-          onClick={() => {
-            onSubmitHandler(this.state.inputValue)
-            this.setState({ inputValue: '' })
-          }}
-        >
-          SUBMIT
         </button>
       </div>
     )

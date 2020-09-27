@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import classes from './gamemodes.module.css'
 
 interface Props {
   onTimerEnd: () => void
@@ -28,9 +29,9 @@ class Timer extends Component<Props, State> {
   }
 
   render() {
-    let timerClasses = ['timer']
+    let timerClasses = [classes.timer]
     if (this.state.timeLeft < 11) {
-      timerClasses.push('skipChange')
+      timerClasses.push(classes.skipChange)
     }
     return <text className={timerClasses.join(' ')}>{'Time Left: ' + this.state.timeLeft}</text>
   }

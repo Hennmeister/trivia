@@ -25,5 +25,5 @@ yarn-error.log*
 /question_data
 
 # REST
-/src/axios-instance.ts
+/src/axios
 /src/Firebase.ts

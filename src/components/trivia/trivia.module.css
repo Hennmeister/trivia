@@ -1,0 +1,93 @@
+.background {
+  width: 100vw;
+  height: 100vh;
+  background-color: skyblue;
+}
+
+.question {
+  font-family: 'Overpass', sans-serif;
+  font-size: 1.5em;
+  max-width: 60vw;
+  max-height: 65vh;
+  text-align: center;
+  background-color: white;
+  color: black;
+  padding: 0.5em;
+  border: solid black 0.25em;
+}
+
+div.wrapper > * {
+  margin: 8vh;
+}
+
+button:focus {
+  outline: 0;
+}
+
+/* AnswerControls Buttons */
+button {
+  font-size: 2em;
+  border: solid gray 1px;
+  width: 50%;
+  height: 6vh;
+  line-height: 6vh;
+  min-width: 10vw;
+}
+
+.submit {
+  background-color: rgb(0, 214, 79);
+  border-left: none;
+}
+
+.submit:active {
+  background-color: darkgreen;
+}
+
+.skip {
+  position: relative;
+  bottom: 10px;
+  background-color: darkred;
+  margin-top: 20px;
+  margin-left: 25%;
+  top: 10vh;
+  width: 50%;
+  color: white;
+  border: white solid 1px;
+}
+
+.skip:active {
+  background-color: red;
+}
+
+.disabled {
+  background-color: grey;
+}
+
+/* Score Styling */
+
+.score {
+  position: fixed;
+  top: 2px;
+  right: 8px;
+  color: white;
+  font-size: 2.5em;
+}
+
+.skips {
+  top: calc(1.5em + 8px);
+  font-size: 1.5em;
+}
+
+@media (max-width: 600px) {
+  button {
+    font-size: 1em;
+    color: purple;
+  }
+}
+
+.align {
+  vertical-align: middle;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

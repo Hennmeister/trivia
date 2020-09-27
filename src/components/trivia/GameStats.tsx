@@ -1,8 +1,10 @@
 import React, { Component } from 'react'
+import classes from './trivia.module.css'
 
 interface Props {
   score: number
-  remainingSkips: number
+  remainingSkips?: number
+  toHideSkips?: boolean
 }
 interface State {
   animateSkipText: boolean
@@ -32,18 +34,20 @@ class GameStats extends Component<Props, State> {
     }
   }
   render() {
-    let skipClassNames = ['score', 'skips']
-    let scoreClassNames = ['score']
+    let skipClassNames = [classes.score, classes.skips]
+    let scoreClassNames = [classes.score]
 
     if (this.state.animateSkipText) {
-      skipClassNames.push('skipChange')
+      skipClassNames.push(classes.skipChange)
     }
     if (this.state.animateScoreText) {
-      scoreClassNames.push('scoreChange')
+      scoreClassNames.push(classes.scoreChange)
     }
     return (
       <>
-        <text className={scoreClassNames.join(' ')}>{'SCORE: ' + this.props.score}</text>
+        {this.props.toHideSkips ? null : (
+          <text className={scoreClassNames.join(' ')}>{'SCORE: ' + this.props.score}</text>
+        )}
         <text className={skipClassNames.join(' ')}>{'SKIPS: ' + this.props.remainingSkips}</text>
       </>
     )
