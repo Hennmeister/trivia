@@ -1,4 +1,4 @@
-import classes from './startScreen.module.css'
+import classes from './gameMechanicInterfaces.module.css'
 import React, { Component } from 'react'
 import { Selectables, NextSelectable } from '../gamemodes/Selectables'
 import SelectorModel from '../UI/SelectorModel'
@@ -6,12 +6,12 @@ import { Gamemode, Category } from '../../model'
 import { isGamemode } from '../../gameUtils'
 
 interface Props {
-  startGame: (gamemode: string, category: number) => void
+  startGame: (gamemode: string, category: Category) => void
 }
 interface State {
   isSelecting: boolean
   selectionIndex: number
-  category: number
+  category: Category
   gamemode: string
 }
 
@@ -20,7 +20,7 @@ export default class Start extends Component<Props, State> {
     isSelecting: false,
     selectionIndex: 0,
     gamemode: '',
-    category: 0,
+    category: { title: '', id: 0 },
   }
 
   _buttonPressHandler = () => {
@@ -31,11 +31,11 @@ export default class Start extends Component<Props, State> {
     if (isGamemode(item)) {
       this.setState({ gamemode: item.title })
     } else {
-      this.setState({ category: item.id })
+      this.setState({ category: { title: item.title, id: item.id } })
     }
 
     if (this.state.selectionIndex === Selectables.length - 1) {
-      this.props.startGame(this.state.gamemode, this.state.category)
+      this.props.startGame(item.title, this.state.category)
     } else {
       this.setState((prevProps) => {
         this.setState({ selectionIndex: prevProps.selectionIndex + 1 })

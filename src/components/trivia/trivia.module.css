@@ -1,7 +1,21 @@
 .background {
   width: 100vw;
   height: 100vh;
-  background-color: skyblue;
+  background: linear-gradient(132deg, yellow, skyblue);
+  background-size: 400% 400%;
+  animation: BackgroundGradient 25s ease infinite;
+}
+
+@keyframes BackgroundGradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
 }
 
 .question {

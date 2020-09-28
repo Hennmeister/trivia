@@ -13,7 +13,6 @@ const getQuestionRequest = (categoryId: number) => {
 export const makeQuestionRequest = async (categoryId: number) => {
   let questions: Question[] = []
   return await getQuestionRequest(categoryId).then((data) => {
-    console.log(data)
     let questions_data = data.results
     let { response_code }: { response_code: number } = data
 
@@ -40,14 +39,12 @@ export const makeQuestionRequest = async (categoryId: number) => {
 
 const _shuffle = (arr: Answer[]) => {
   let j, x, i
-  console.log('arr orig', arr)
   for (i = arr.length - 1; i > 0; i--) {
     j = Math.floor(Math.random() * (i + 1))
     x = arr[i]
     arr[i] = arr[j]
     arr[j] = x
   }
-  console.log('arr', arr)
   return arr
 }
 

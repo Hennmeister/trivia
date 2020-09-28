@@ -45,10 +45,10 @@ class GameStats extends Component<Props, State> {
     }
     return (
       <>
+        <text className={scoreClassNames.join(' ')}>{'SCORE: ' + this.props.score}</text>
         {this.props.toHideSkips ? null : (
-          <text className={scoreClassNames.join(' ')}>{'SCORE: ' + this.props.score}</text>
+          <text className={skipClassNames.join(' ')}>{'SKIPS: ' + this.props.remainingSkips}</text>
         )}
-        <text className={skipClassNames.join(' ')}>{'SKIPS: ' + this.props.remainingSkips}</text>
       </>
     )
   }

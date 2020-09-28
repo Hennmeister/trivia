@@ -4,6 +4,7 @@ import axios from '../../axios/axios-questions'
 import AnswerControls from '../trivia/AnswerControls'
 import GameStats from '../trivia/GameStats'
 import Timer from './Timer'
+import Spinner from '../UI/Spinner'
 
 import { RequiredGameState, RequiredGameProps, Question } from '../../model'
 import { makeQuestionRequest } from '../../gameUtils'
@@ -14,7 +15,7 @@ interface State extends RequiredGameState {}
 
 class TimeRace extends Component<Props, State> {
   state = {
-    questions: [],
+    questions: [] as Question[],
     questionIndex: 0,
     score: 0,
     questionsRequested: false,
@@ -40,17 +41,13 @@ class TimeRace extends Component<Props, State> {
     this._getQuestions()
   }
 
-  _getQuestions = async () => {
+  _getQuestions = () => {
     if (!this.state.questionsRequested && this.state.questionIndex > this.state.questions.length - 5) {
       this.setState({ questionsRequested: true })
       makeQuestionRequest(this.props.categoryId).then(([newQuestions, resp_code]) => {
-        console.log(resp_code)
-        this.setState((prevProps) => {
-          this.setState({
-            questions: prevProps.questions.concat(newQuestions as Question[]),
-            questionsRequested: false,
-          })
-        })
+        let copy: Question[] = [...this.state.questions]
+        copy = copy.concat(newQuestions as Question[])
+        this.setState({ questions: copy, questionsRequested: false })
       })
     }
   }
@@ -58,21 +55,25 @@ class TimeRace extends Component<Props, State> {
   _EndGame = () => {}
 
   render() {
-    return (
-      <>
-        <GameStats toHideSkips={true} score={this.state.score} />
-        <div className={classes.wrapper}>
-          <text className={classes.question}>{this.state.questions[this.state.questionIndex]}</text>
-          <AnswerControls
-            question={this.state.questions[this.state.questionIndex]}
-            onSkipHandler={this._onSkipHandler}
-            onSubmitHandler={this._onSubmitAnswerHandler}
-            isSkipDisabled={false}
-          />
-        </div>
-        <Timer onTimerEnd={this._EndGame}></Timer>
-      </>
-    )
+    let game =
+      this.state.questionIndex === this.state.questions.length ? (
+        <Spinner />
+      ) : (
+        <>
+          <GameStats toHideSkips={true} score={this.state.score} />
+          <div className={classes.wrapper}>
+            <text className={classes.question}>{this.state.questions[this.state.questionIndex].question}</text>
+            <AnswerControls
+              question={this.state.questions[this.state.questionIndex]}
+              onSkipHandler={this._onSkipHandler}
+              onSubmitHandler={this._onSubmitAnswerHandler}
+              isSkipDisabled={false}
+            />
+          </div>
+          <Timer onTimerEnd={this._EndGame}></Timer>
+        </>
+      )
+    return game
   }
 }
 

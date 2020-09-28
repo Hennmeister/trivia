@@ -23,7 +23,7 @@
 }
 
 .btn {
-  background: none;
+  background: rgba(0, 0, 0, 0.1);
   font-size: 3rem;
   padding: 1rem 3rem;
   color: #f4f4f4;
@@ -54,4 +54,52 @@
 
 .btn:hover:before {
   left: 100%;
+}
+
+.gameOverModel {
+  background: linear-gradient(132deg, #ec5218, #1665c1);
+  background-size: 400% 400%;
+  animation: BackgroundGradient 25s ease infinite;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-flow: column;
+}
+
+.gameOverModel > * {
+  margin: 8px;
+}
+
+.gameOverText {
+  border-bottom: red 1px solid;
+  font-size: 3rem;
+}
+
+.score {
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 2rem;
+}
+
+.gameSettings {
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 1.5rem;
+}
+
+.questionsWrapper {
+}
+
+.question {
+  width: 30vw;
+  height: 30vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+.restart {
+  position: absolute;
+  bottom: 10px;
 }

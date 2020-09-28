@@ -1,29 +1,36 @@
 import React, { Component } from 'react'
-import Start from './components/StartScreen/StartScreen'
+import GameOver from './components/GameMechanicInterfaces/GameOver'
+import StartScreen from './components/GameMechanicInterfaces/StartScreen'
 import GameManager from './components/trivia/GameManager'
+import { Category } from './model'
 
 interface Props {}
 interface State {
   isInGame: boolean
   gamemode: string
-  category: number
+  category: Category
 }
 class App extends Component<Props, State> {
   state = {
     isInGame: false,
     gamemode: '',
-    category: 0,
+    category: { title: '', id: 0 },
   }
-  _startGame = (gamemode: string, category: number) => {
+  _startGame = (gamemode: string, category: Category) => {
+    console.log('y0' + gamemode)
     this.setState({ isInGame: true, gamemode: gamemode, category: category })
+  }
+
+  _restartGame = () => {
+    this.setState({ isInGame: false, gamemode: '', category: { title: '', id: 0 } })
   }
   render() {
     return (
       <div>
         {this.state.isInGame ? (
-          <GameManager category={this.state.category} gamemode={this.state.gamemode} />
+          <GameManager restartGame={this._restartGame} category={this.state.category} gamemode={this.state.gamemode} />
         ) : (
-          <Start startGame={this._startGame}></Start>
+          <StartScreen startGame={this._startGame}></StartScreen>
         )}
       </div>
     )

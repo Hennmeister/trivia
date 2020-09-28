@@ -63,7 +63,6 @@ class Survival extends Component<Props, State> {
     if (!this.state.questionsRequested && this.state.questionIndex > this.state.questions.length - 5) {
       this.setState({ questionsRequested: true })
       makeQuestionRequest(this.props.categoryId).then(([newQuestions, resp_code]) => {
-        console.log(newQuestions)
         let copy: Question[] = [...this.state.questions]
         copy = copy.concat(newQuestions as Question[])
         this.setState({ questions: copy, questionsRequested: false })
