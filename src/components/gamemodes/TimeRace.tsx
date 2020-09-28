@@ -9,7 +9,9 @@ import Spinner from '../UI/Spinner'
 import { RequiredGameState, RequiredGameProps, Question } from '../../model'
 import { makeQuestionRequest } from '../../gameUtils'
 
-interface Props extends RequiredGameProps {}
+interface Props extends RequiredGameProps {
+  endGame: (score: number, questions: Question[], answers: string[]) => void
+}
 
 interface State extends RequiredGameState {}
 
@@ -19,24 +21,29 @@ class TimeRace extends Component<Props, State> {
     questionIndex: 0,
     score: 0,
     questionsRequested: false,
+    userAnswers: [],
   }
 
   componentDidMount() {
     this._getQuestions()
   }
 
-  _onSubmitAnswerHandler = (isCorrect: boolean) => {
+  _onSubmitAnswerHandler = (isCorrect: boolean, answer: string) => {
     if (isCorrect) {
       this.setState((prevProps) => {
-        this.setState({ score: prevProps.score + 1, questionIndex: prevProps.questionIndex + 1 })
+        this.setState({
+          score: prevProps.score + 1,
+          questionIndex: prevProps.questionIndex + 1,
+          userAnswers: prevProps.userAnswers.concat(answer),
+        })
       })
     }
     this._getQuestions()
   }
 
-  _onSkipHandler = () => {
+  _onSkipHandler = (answer: string) => {
     this.setState((prevProps) => {
-      this.setState({ questionIndex: prevProps.questionIndex + 1 })
+      this.setState({ questionIndex: prevProps.questionIndex + 1, userAnswers: prevProps.userAnswers.concat(answer) })
     })
     this._getQuestions()
   }
@@ -51,8 +58,6 @@ class TimeRace extends Component<Props, State> {
       })
     }
   }
-
-  _EndGame = () => {}
 
   render() {
     let game =
@@ -70,7 +75,15 @@ class TimeRace extends Component<Props, State> {
               isSkipDisabled={false}
             />
           </div>
-          <Timer onTimerEnd={this._EndGame}></Timer>
+          <Timer
+            onTimerEnd={() =>
+              this.props.endGame(
+                this.state.score,
+                this.state.questions.slice(0, this.state.questionIndex),
+                this.state.userAnswers
+              )
+            }
+          ></Timer>
         </>
       )
     return game

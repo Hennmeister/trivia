@@ -8,14 +8,19 @@ interface Props {
 }
 interface State {}
 
-export default class Question extends Component<Props, State> {
+export default class QuestionDisplay extends Component<Props, State> {
   state = {}
 
   render() {
     return (
       <div className={classes.question}>
-        <text>Question: {this.props.question}</text>
-        <text style={this.props.userAnswer === this.props.correctAnswer ? undefined : { color: 'red' }}>
+        <text className={classes.questionTxt}>
+          Question: {'\n'} {this.props.question}
+        </text>
+        <text
+          className={classes.ans}
+          style={this.props.userAnswer === this.props.correctAnswer ? { color: 'green' } : { color: 'red' }}
+        >
           Answer: {this.props.correctAnswer}
         </text>
       </div>

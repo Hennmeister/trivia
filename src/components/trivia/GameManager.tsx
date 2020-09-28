@@ -28,17 +28,17 @@ class GamemodeManager extends Component<Props, State> {
   }
 
   endGame = (score: number, questions: Question[], answers: string[]) => {
-    this.setState({ isGameOver: true })
+    this.setState({ isGameOver: true, score: score, questions: questions, answers: answers })
   }
 
   render() {
-    let mode = <Survival categoryId={this.props.category.id} />
+    let mode = <Survival categoryId={this.props.category.id} endGame={this.endGame} />
     switch (this.props.gamemode) {
       case 'TimeRace':
-        mode = <TimeRace categoryId={this.props.category.id} />
+        mode = <TimeRace categoryId={this.props.category.id} endGame={this.endGame} />
         break
       default:
-        mode = <Survival categoryId={this.props.category.id} />
+        mode = <Survival categoryId={this.props.category.id} endGame={this.endGame} />
     }
     return (
       <>

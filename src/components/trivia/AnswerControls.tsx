@@ -4,8 +4,8 @@ import { Question } from '../../model'
 
 interface Props {
   question: Question
-  onSubmitHandler: (isCorrect: boolean) => void
-  onSkipHandler: () => void
+  onSubmitHandler: (isCorrect: boolean, answer: string) => void
+  onSkipHandler: (answer: string) => void
   isSkipDisabled: boolean
 }
 
@@ -18,7 +18,7 @@ class AnswerControls extends Component<Props, State> {
     let { question, onSubmitHandler, onSkipHandler, isSkipDisabled } = this.props
     let skipButtonClasses = this.props.isSkipDisabled ? [classes.skip, classes.disabled] : [classes.skip]
     const answerButtons = question.answers.map((ans) => (
-      <button onClick={() => onSubmitHandler(ans.isCorrect)}>{ans.answer}</button>
+      <button onClick={() => onSubmitHandler(ans.isCorrect, ans.answer)}>{ans.answer}</button>
     ))
     return (
       <div>
@@ -27,7 +27,7 @@ class AnswerControls extends Component<Props, State> {
           disabled={this.props.isSkipDisabled}
           className={skipButtonClasses.join(' ')}
           onClick={() => {
-            this.props.onSkipHandler()
+            this.props.onSkipHandler(question.answers.filter((ans) => ans.isCorrect)[0].answer)
             this.setState({ inputValue: '' })
           }}
         >

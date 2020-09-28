@@ -3,6 +3,7 @@ export interface RequiredGameState {
   score: number
   questionIndex: number
   questionsRequested: boolean
+  userAnswers: string[]
 }
 
 export interface RequiredGameProps {

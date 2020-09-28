@@ -8,7 +8,9 @@ import { RequiredGameState, RequiredGameProps, Question } from '../../model'
 import { makeQuestionRequest } from '../../gameUtils'
 import Spinner from '../UI/Spinner'
 
-interface Props extends RequiredGameProps {}
+interface Props extends RequiredGameProps {
+  endGame: (score: number, questions: Question[], answers: string[]) => void
+}
 
 interface State extends RequiredGameState {
   remainingSkips: number
@@ -28,32 +30,49 @@ class Survival extends Component<Props, State> {
     questionsRequested: false,
     remainingSkips: 3,
     lives: 3,
+    userAnswers: [],
   }
 
   componentDidMount() {
     this._getQuestions()
   }
 
-  _onSubmitAnswerHandler = (isCorrect: boolean) => {
+  _onSubmitAnswerHandler = (isCorrect: boolean, answer: string) => {
     if (isCorrect) {
       this.setState((prevProps) => {
-        this.setState({ score: prevProps.score + 1, questionIndex: prevProps.questionIndex + 1 })
+        this.setState({
+          score: prevProps.score + 1,
+          questionIndex: prevProps.questionIndex + 1,
+          userAnswers: prevProps.userAnswers.concat(answer),
+        })
       })
     } else {
       this.setState((prevProps) => {
-        this.setState({ lives: prevProps.lives - 1, questionIndex: prevProps.questionIndex + 1 })
+        this.setState({
+          lives: prevProps.lives - 1,
+          questionIndex: prevProps.questionIndex + 1,
+          userAnswers: prevProps.userAnswers.concat(answer),
+        })
       })
-      if (this.state.lives <= 0) {
-        this._endGame()
+      if (this.state.lives === 1) {
+        this.props.endGame(
+          this.state.score,
+          this.state.questions.slice(0, this.state.questionIndex),
+          this.state.userAnswers
+        )
       }
     }
     this._getQuestions()
   }
 
-  _onSkipHandler = () => {
+  _onSkipHandler = (answer: string) => {
     if (this.state.remainingSkips > 0) {
       this.setState((prevProps) => {
-        this.setState({ questionIndex: prevProps.questionIndex + 1, remainingSkips: prevProps.remainingSkips - 1 })
+        this.setState({
+          questionIndex: prevProps.questionIndex + 1,
+          remainingSkips: prevProps.remainingSkips - 1,
+          userAnswers: prevProps.userAnswers.concat(answer),
+        })
       })
     }
     this._getQuestions()
@@ -69,8 +88,6 @@ class Survival extends Component<Props, State> {
       })
     }
   }
-
-  _endGame = () => {}
 
   render() {
     let game =
