@@ -20,11 +20,23 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: skyblue;
+  background: linear-gradient(80deg, #ec5218, #1665c1);
+  background-size: 200% 200%;
+  animation: BackgroundGradient 25s ease infinite;
   height: 100vh;
   flex-flow: column;
 }
-
+@keyframes BackgroundGradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
 div.wrapper > * {
   margin: 8vh;
 }

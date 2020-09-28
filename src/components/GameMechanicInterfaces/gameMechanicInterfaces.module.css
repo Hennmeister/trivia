@@ -1,5 +1,5 @@
 .bg {
-  background: linear-gradient(132deg, #ec5218, #1665c1);
+  background: linear-gradient(132deg, #ec5218, #022d5e);
   background-size: 400% 400%;
   animation: BackgroundGradient 25s ease infinite;
   width: 100vw;
@@ -57,7 +57,7 @@
 }
 
 .gameOverModel {
-  background: linear-gradient(132deg, #ec5218, #1665c1);
+  background: linear-gradient(350deg, rgb(145, 3, 3), rgb(29, 185, 247));
   background-size: 400% 400%;
   animation: BackgroundGradient 25s ease infinite;
   width: 100vw;
@@ -89,7 +89,6 @@
 }
 
 .questionsWrapper {
-  height: 30vh;
   width: 30vw;
   justify-content: center;
   align-items: center;

@@ -19,7 +19,11 @@ export default class QuestionDisplay extends Component<Props, State> {
         </text>
         <text
           className={classes.ans}
-          style={this.props.userAnswer === this.props.correctAnswer ? { color: 'green' } : { color: 'red' }}
+          style={
+            this.props.userAnswer === this.props.correctAnswer
+              ? { color: 'green', opacity: 0.6 }
+              : { color: 'red', opacity: 0.6 }
+          }
         >
           Answer: {this.props.correctAnswer}
         </text>

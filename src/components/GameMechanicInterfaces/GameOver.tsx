@@ -32,7 +32,7 @@ export default class GameOver extends Component<Props, State> {
           <text className={classes.score}>Score: {this.props.score}</text>
           <text className={classes.gameSettings}>
             <div className={classes.questionsWrapper}>{questions}</div>
-            Gamemode: {this.props.gamemode} | Category: {this.props.categoryTitle}
+            Gamemode: {this.props.gamemode} , Category: {this.props.categoryTitle}
           </text>
           <button onClick={this.props.restart} className={classes.btn + ' ' + classes.restart}>
             Restart
