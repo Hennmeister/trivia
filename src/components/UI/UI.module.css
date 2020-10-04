@@ -85,9 +85,12 @@
 }
 
 @media (max-width: 500px) {
-  .title {
-    font-size: 4em;
-    margin-right: 50vw;
+  .item {
+    font-size: 0.8em;
+  }
+  .selectorModel {
+    height: 50vh;
+    width: 85vw;
   }
 }
 

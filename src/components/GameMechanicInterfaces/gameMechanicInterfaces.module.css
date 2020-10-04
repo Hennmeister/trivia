@@ -23,9 +23,9 @@
 }
 
 .btn {
+  text-align: center;
   background: rgba(0, 0, 0, 0.1);
   font-size: 3rem;
-  padding: 1rem 3rem;
   color: #f4f4f4;
   text-transform: uppercase;
   min-height: 10%;
@@ -89,7 +89,7 @@
 }
 
 .questionsWrapper {
-  width: 30vw;
+  height: 30vh;
   justify-content: center;
   align-items: center;
   background-color: rgba(0, 0, 0, 0.1);
@@ -134,4 +134,10 @@
 .restart {
   position: absolute;
   bottom: 10px;
+}
+
+@media (max-width: 600px) {
+  .btn {
+    font-size: 1.5em;
+  }
 }

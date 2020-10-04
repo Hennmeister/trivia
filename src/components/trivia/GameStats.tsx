@@ -27,6 +27,7 @@ class GameStats extends Component<Props, State> {
         this.setState({ animateSkipText: false })
       }, 900)
     } else if (prevProps.score !== this.props.score) {
+      console.log('YES')
       this.setState({ animateScoreText: true })
       setTimeout(() => {
         this.setState({ animateScoreText: false })
@@ -42,6 +43,7 @@ class GameStats extends Component<Props, State> {
     }
     if (this.state.animateScoreText) {
       scoreClassNames.push(classes.scoreChange)
+      console.log(scoreClassNames)
     }
     return (
       <>

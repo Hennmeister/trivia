@@ -4,6 +4,7 @@ import { Selectables, NextSelectable } from '../gamemodes/Selectables'
 import SelectorModel from '../UI/SelectorModel'
 import { Gamemode, Category } from '../../model'
 import { isGamemode } from '../../gameUtils'
+import Title from '../UI/Title'
 
 interface Props {
   startGame: (gamemode: string, category: Category) => void
@@ -45,7 +46,9 @@ export default class Start extends Component<Props, State> {
 
   render() {
     const display = this.state.isSelecting ? (
-      <SelectorModel items={Selectables[this.state.selectionIndex]} onItemPress={this.itemPressHandler} />
+      <>
+        <SelectorModel items={Selectables[this.state.selectionIndex]} onItemPress={this.itemPressHandler} />
+      </>
     ) : (
       <button onClick={this._buttonPressHandler} className={classes.btn}>
         START

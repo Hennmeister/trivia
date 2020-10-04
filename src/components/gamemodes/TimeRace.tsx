@@ -37,6 +37,13 @@ class TimeRace extends Component<Props, State> {
           userAnswers: prevProps.userAnswers.concat(answer),
         })
       })
+    } else {
+      this.setState((prevProps) => {
+        this.setState({
+          questionIndex: prevProps.questionIndex + 1,
+          userAnswers: prevProps.userAnswers.concat(answer),
+        })
+      })
     }
     this._getQuestions()
   }
