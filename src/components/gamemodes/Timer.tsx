@@ -25,6 +25,7 @@ class Timer extends Component<Props, State> {
       })
     } else {
       clearInterval(this.state.interval)
+      this.props.onTimerEnd()
     }
   }
 
