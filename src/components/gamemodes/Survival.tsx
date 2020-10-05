@@ -5,7 +5,7 @@ import GameStats from '../trivia/GameStats'
 import Lives from './Lives'
 
 import { RequiredGameState, RequiredGameProps, Question } from '../../model'
-import { makeQuestionRequest } from '../../gameUtils'
+import { makeQuestionRequest, getSessionToken } from '../../gameUtils'
 import Spinner from '../UI/Spinner'
 
 interface Props extends RequiredGameProps {
@@ -31,10 +31,11 @@ class Survival extends Component<Props, State> {
     remainingSkips: 3,
     lives: 3,
     userAnswers: [],
+    token: '',
   }
 
   componentDidMount() {
-    this._getQuestions()
+    this._getSessionToken()
   }
 
   _onSubmitAnswerHandler = (isCorrect: boolean, answer: string) => {
@@ -81,12 +82,19 @@ class Survival extends Component<Props, State> {
   _getQuestions = () => {
     if (!this.state.questionsRequested && this.state.questionIndex > this.state.questions.length - 5) {
       this.setState({ questionsRequested: true })
-      makeQuestionRequest(this.props.categoryId).then(([newQuestions, resp_code]) => {
+      makeQuestionRequest(this.props.categoryId, this.state.token).then(([newQuestions, resp_code]) => {
         let copy: Question[] = [...this.state.questions]
         copy = copy.concat(newQuestions as Question[])
         this.setState({ questions: copy, questionsRequested: false })
       })
     }
+  }
+
+  _getSessionToken = () => {
+    getSessionToken().then((token) => {
+      this.setState({ token: token })
+      this._getQuestions()
+    })
   }
 
   render() {

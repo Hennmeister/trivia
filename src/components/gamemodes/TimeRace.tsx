@@ -7,7 +7,7 @@ import Timer from './Timer'
 import Spinner from '../UI/Spinner'
 
 import { RequiredGameState, RequiredGameProps, Question } from '../../model'
-import { makeQuestionRequest } from '../../gameUtils'
+import { makeQuestionRequest, getSessionToken } from '../../gameUtils'
 
 interface Props extends RequiredGameProps {
   endGame: (score: number, questions: Question[], answers: string[]) => void
@@ -22,9 +22,11 @@ class TimeRace extends Component<Props, State> {
     score: 0,
     questionsRequested: false,
     userAnswers: [],
+    token: '',
   }
 
   componentDidMount() {
+    this._getSessionToken()
     this._getQuestions()
   }
 
@@ -58,12 +60,18 @@ class TimeRace extends Component<Props, State> {
   _getQuestions = () => {
     if (!this.state.questionsRequested && this.state.questionIndex > this.state.questions.length - 5) {
       this.setState({ questionsRequested: true })
-      makeQuestionRequest(this.props.categoryId).then(([newQuestions, resp_code]) => {
+      makeQuestionRequest(this.props.categoryId, this.state.token).then(([newQuestions, resp_code]) => {
         let copy: Question[] = [...this.state.questions]
         copy = copy.concat(newQuestions as Question[])
         this.setState({ questions: copy, questionsRequested: false })
       })
     }
+  }
+
+  _getSessionToken = async () => {
+    getSessionToken().then((token) => {
+      this.setState({ token: token })
+    })
   }
 
   render() {
