@@ -1,6 +1,5 @@
 import { Question, Answer, Gamemode, Category } from './model'
 import axios from 'axios'
-import { assert } from 'console'
 
 const HTMLEncodings = {
   '&#039;': "'",

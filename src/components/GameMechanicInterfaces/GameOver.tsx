@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Category, Question } from '../../model'
+import { Question } from '../../model'
 import Title from '../UI/Title'
 import classes from './gameMechanicInterfaces.module.css'
 import QuestionDisplay from './QuestionDisplay'

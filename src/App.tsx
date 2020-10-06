@@ -1,8 +1,6 @@
 import React, { Component } from 'react'
-import GameOver from './components/GameMechanicInterfaces/GameOver'
 import StartScreen from './components/GameMechanicInterfaces/StartScreen'
 import GameManager from './components/trivia/GameManager'
-import AnswerIndicator from './components/UI/AnswerIndicator'
 import { Category } from './model'
 
 interface Props {}

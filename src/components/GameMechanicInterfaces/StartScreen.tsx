@@ -1,6 +1,6 @@
 import classes from './gameMechanicInterfaces.module.css'
 import React, { Component } from 'react'
-import { Selectables, NextSelectable } from '../gamemodes/Selectables'
+import { Selectables } from '../gamemodes/Selectables'
 import SelectorModel from '../UI/SelectorModel'
 import { Gamemode, Category } from '../../model'
 import { isGamemode } from '../../gameUtils'

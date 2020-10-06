@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import classes from './gamemodes.module.css'
-import axios from '../../axios/axios-questions'
 import AnswerControls from '../trivia/AnswerControls'
 import GameStats from '../trivia/GameStats'
 import Timer from './Timer'

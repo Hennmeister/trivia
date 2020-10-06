@@ -1,6 +1,5 @@
 .gameTitle {
   background: linear-gradient(to right, #434343 0%, #000000 100%);
-  -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   font-size: 3em;
   font-family: 'Press Start 2P', cursive;

@@ -1,6 +1,5 @@
 import classes from './UI.module.css'
 import React, { Component } from 'react'
-import { timeStamp } from 'console'
 
 interface Props {
   isCorrect: boolean
