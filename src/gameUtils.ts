@@ -28,47 +28,49 @@ const getQuestionRequest = (categoryId: number, token: string) => {
 
 export const makeQuestionRequest = async (categoryId: number, token: string) => {
   let questions: Question[] = []
-  return await getQuestionRequest(categoryId, token).then((data) => {
-    let questions_data = data.results
+  return await getQuestionRequest(categoryId, token)
+    .then((data) => {
+      let questions_data = data.results
 
-    let { response_code }: { response_code: number } = data
+      let { response_code }: { response_code: number } = data
 
-    for (let i = 0; i < 10; i++) {
-      let answers: Answer[] = [
-        {
-          answer: questions_data[i].correct_answer.replace(/&quot;|&#039;/gi, (matched) => HTMLEncodings[matched]),
-          isCorrect: true,
-        },
-      ]
-      if (questions_data[i].type === 'boolean') {
-        answers.push({
-          answer: questions_data[i].incorrect_answers[0].replace(
-            /&quot;|&#039;/gi,
-            (matched) => HTMLEncodings[matched]
-          ),
-          isCorrect: false,
-        })
-      } else {
-        for (let j = 0; j < 3; j++) {
+      for (let i = 0; i < 10; i++) {
+        let answers: Answer[] = [
+          {
+            answer: questions_data[i].correct_answer.replace(/&quot;|&#039;/gi, (matched) => HTMLEncodings[matched]),
+            isCorrect: true,
+          },
+        ]
+        if (questions_data[i].type === 'boolean') {
           answers.push({
-            answer: questions_data[i].incorrect_answers[j].replace(
+            answer: questions_data[i].incorrect_answers[0].replace(
               /&quot;|&#039;/gi,
               (matched) => HTMLEncodings[matched]
             ),
             isCorrect: false,
           })
+        } else {
+          for (let j = 0; j < 3; j++) {
+            answers.push({
+              answer: questions_data[i].incorrect_answers[j].replace(
+                /&quot;|&#039;/gi,
+                (matched) => HTMLEncodings[matched]
+              ),
+              isCorrect: false,
+            })
+          }
         }
+        _shuffle(answers)
+        let question: Question = {
+          question: questions_data[i].question.replace(/&quot;|&#039;/gi, (matched) => HTMLEncodings[matched]),
+          answers: answers,
+          isBoolean: questions_data[i].type === 'boolean',
+        }
+        questions.push(question)
       }
-      _shuffle(answers)
-      let question: Question = {
-        question: questions_data[i].question.replace(/&quot;|&#039;/gi, (matched) => HTMLEncodings[matched]),
-        answers: answers,
-        isBoolean: questions_data[i].type === 'boolean',
-      }
-      questions.push(question)
-    }
-    return [questions, response_code]
-  })
+      return questions
+    })
+    .catch((err) => console.log(err))
 }
 
 const _shuffle = (arr: Answer[]) => {

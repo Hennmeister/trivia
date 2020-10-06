@@ -18,7 +18,6 @@ class App extends Component<Props, State> {
     category: { title: '', id: 0 },
   }
   _startGame = (gamemode: string, category: Category) => {
-    console.log('y0' + gamemode)
     this.setState({ isInGame: true, gamemode: gamemode, category: category })
   }
 

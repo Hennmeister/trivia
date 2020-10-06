@@ -88,11 +88,13 @@ class Survival extends Component<Props, State> {
   _getQuestions = () => {
     if (!this.state.questionsRequested && this.state.questionIndex > this.state.questions.length - 5) {
       this.setState({ questionsRequested: true })
-      makeQuestionRequest(this.props.categoryId, this.state.token).then(([newQuestions, resp_code]) => {
-        let copy: Question[] = [...this.state.questions]
-        copy = copy.concat(newQuestions as Question[])
-        this.setState({ questions: copy, questionsRequested: false })
-      })
+      makeQuestionRequest(this.props.categoryId, this.state.token)
+        .then((newQuestions) => {
+          let copy: Question[] = [...this.state.questions]
+          copy = copy.concat(newQuestions as Question[])
+          this.setState({ questions: copy, questionsRequested: false })
+        })
+        .catch((err) => console.log(err))
     }
   }
 
@@ -122,8 +124,6 @@ class Survival extends Component<Props, State> {
         </>
       )
     if (this.state.showIndicator) {
-      console.log(this.state.userAnswers[this.state.questionIndex - 1])
-      console.log(this.state.questions.slice()[this.state.questionIndex - 1].answers.filter((ans) => ans.isCorrect)[0])
       game = (
         <div className={classes.wrapper}>
           <AnswerIndicator
