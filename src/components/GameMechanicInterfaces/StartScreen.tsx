@@ -47,6 +47,7 @@ export default class Start extends Component<Props, State> {
   render() {
     const display = this.state.isSelecting ? (
       <>
+        <Title>Choose Your {this.state.selectionIndex === 0 ? 'Category' : 'Gamemode'}</Title>
         <SelectorModel items={Selectables[this.state.selectionIndex]} onItemPress={this.itemPressHandler} />
       </>
     ) : (

@@ -113,3 +113,12 @@ button:hover {
   align-items: center;
   justify-content: center;
 }
+
+@media (max-width: 550px) {
+  .skip {
+    top: 0px;
+  }
+  button {
+    font-size: 1.3rem;
+  }
+}
