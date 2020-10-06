@@ -26,6 +26,7 @@
   height: 100vh;
   flex-flow: column;
 }
+
 @keyframes BackgroundGradient {
   0% {
     background-position: 0% 50%;

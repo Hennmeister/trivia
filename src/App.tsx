@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import GameOver from './components/GameMechanicInterfaces/GameOver'
 import StartScreen from './components/GameMechanicInterfaces/StartScreen'
 import GameManager from './components/trivia/GameManager'
+import AnswerIndicator from './components/UI/AnswerIndicator'
 import { Category } from './model'
 
 interface Props {}
@@ -26,7 +27,7 @@ class App extends Component<Props, State> {
   }
   render() {
     return (
-      <div>
+      <div className={'background'}>
         {this.state.isInGame ? (
           <GameManager restartGame={this._restartGame} category={this.state.category} gamemode={this.state.gamemode} />
         ) : (

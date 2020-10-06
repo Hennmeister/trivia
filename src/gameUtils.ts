@@ -1,5 +1,6 @@
 import { Question, Answer, Gamemode, Category } from './model'
 import axios from 'axios'
+import { assert } from 'console'
 
 const HTMLEncodings = {
   '&#039;': "'",
@@ -29,6 +30,7 @@ export const makeQuestionRequest = async (categoryId: number, token: string) => 
   let questions: Question[] = []
   return await getQuestionRequest(categoryId, token).then((data) => {
     let questions_data = data.results
+
     let { response_code }: { response_code: number } = data
 
     for (let i = 0; i < 10; i++) {

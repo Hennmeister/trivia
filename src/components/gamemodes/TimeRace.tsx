@@ -8,6 +8,7 @@ import Spinner from '../UI/Spinner'
 
 import { RequiredGameState, RequiredGameProps, Question } from '../../model'
 import { makeQuestionRequest, getSessionToken } from '../../gameUtils'
+import AnswerIndicator from '../UI/AnswerIndicator'
 
 interface Props extends RequiredGameProps {
   endGame: (score: number, questions: Question[], answers: string[]) => void
@@ -23,6 +24,7 @@ class TimeRace extends Component<Props, State> {
     questionsRequested: false,
     userAnswers: [],
     token: '',
+    showIndicator: false,
   }
 
   componentDidMount() {
@@ -48,11 +50,15 @@ class TimeRace extends Component<Props, State> {
       })
     }
     this._getQuestions()
+    this.setState({ showIndicator: true })
+    setTimeout(() => {
+      this.setState({ showIndicator: false })
+    }, 1000)
   }
 
   _onSkipHandler = (answer: string) => {
     this.setState((prevProps) => {
-      this.setState({ questionIndex: prevProps.questionIndex + 1, userAnswers: prevProps.userAnswers.concat(answer) })
+      this.setState({ questionIndex: prevProps.questionIndex + 1, userAnswers: prevProps.userAnswers.concat(' ') })
     })
     this._getQuestions()
   }
@@ -90,18 +96,37 @@ class TimeRace extends Component<Props, State> {
               isSkipDisabled={false}
             />
           </div>
-          <Timer
-            onTimerEnd={() =>
-              this.props.endGame(
-                this.state.score,
-                this.state.questions.slice(0, this.state.questionIndex),
-                this.state.userAnswers
-              )
-            }
-          ></Timer>
         </>
       )
-    return game
+    if (this.state.showIndicator) {
+      console.log(this.state.userAnswers[this.state.questionIndex - 1])
+      console.log(this.state.questions.slice()[this.state.questionIndex - 1].answers.filter((ans) => ans.isCorrect)[0])
+      game = (
+        <div className={classes.wrapper}>
+          <AnswerIndicator
+            isCorrect={
+              this.state.userAnswers[this.state.questionIndex - 1] ===
+              this.state.questions.slice()[this.state.questionIndex - 1].answers.filter((ans) => ans.isCorrect)[0]
+                .answer
+            }
+          />
+        </div>
+      )
+    }
+    return (
+      <>
+        {game}
+        <Timer
+          onTimerEnd={() =>
+            this.props.endGame(
+              this.state.score,
+              this.state.questions.slice(0, this.state.questionIndex),
+              this.state.userAnswers
+            )
+          }
+        ></Timer>
+      </>
+    )
   }
 }
 

@@ -3,3 +3,23 @@
   /* font-family: 'Overpass', sans-serif; */
   margin: 0;
 }
+
+.background {
+  background: linear-gradient(80deg, #ec5218, #1665c1);
+  background-size: 200% 200%;
+  animation: BackgroundGradient 25s ease infinite;
+  height: 100vh;
+  flex-flow: column;
+}
+
+@keyframes BackgroundGradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}

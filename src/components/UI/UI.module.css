@@ -159,3 +159,33 @@
   border: solid white 10px;
   border-radius: 50%;
 }
+
+/* INDICATOR */
+.indicator {
+  font-size: 20em;
+  animation: grow 25s infinite;
+}
+
+.red {
+  color: rgba(255, 0, 0, 0.55);
+  text-shadow: -1px 0 rgba(16, 15, 15, 0.1), 0 1px rgba(16, 15, 15, 0.1), 1px 0 rgba(16, 15, 15, 0.1),
+    0 -1px rgba(16, 15, 15, 0.1);
+}
+
+.green {
+  color: rgba(31, 187, 31, 0.55);
+  text-shadow: -1px 0 rgba(30, 255, 0, 0.945), 0 1pxrgba (30, 255, 0, 0.945), 1px 0 rgba(30, 255, 0, 0.945),
+    0 -1px rgba(30, 255, 0, 0.945);
+}
+
+@keyframes grow {
+  0% {
+    transform: scale(1);
+  }
+  60% {
+    transform: scale(2);
+  }
+  100% {
+    transform: scale(1);
+  }
+}

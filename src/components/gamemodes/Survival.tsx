@@ -7,6 +7,7 @@ import Lives from './Lives'
 import { RequiredGameState, RequiredGameProps, Question } from '../../model'
 import { makeQuestionRequest, getSessionToken } from '../../gameUtils'
 import Spinner from '../UI/Spinner'
+import AnswerIndicator from '../UI/AnswerIndicator'
 
 interface Props extends RequiredGameProps {
   endGame: (score: number, questions: Question[], answers: string[]) => void
@@ -18,10 +19,6 @@ interface State extends RequiredGameState {
   questions: Question[]
 }
 
-//TODO: Endgame by passing up releveant props, making endscreen comp that gamemanager shows
-// refactor api call
-// high score feautre - enter name  (maybe use cloud fun)
-
 class Survival extends Component<Props, State> {
   state = {
     questions: [] as Question[],
@@ -32,6 +29,7 @@ class Survival extends Component<Props, State> {
     lives: 3,
     userAnswers: [],
     token: '',
+    showIndicator: false,
   }
 
   componentDidMount() {
@@ -49,21 +47,29 @@ class Survival extends Component<Props, State> {
       })
     } else {
       this.setState((prevProps) => {
-        this.setState({
-          lives: prevProps.lives - 1,
-          questionIndex: prevProps.questionIndex + 1,
-          userAnswers: prevProps.userAnswers.concat(answer),
-        })
-      })
-      if (this.state.lives === 1) {
-        this.props.endGame(
-          this.state.score,
-          this.state.questions.slice(0, this.state.questionIndex),
-          this.state.userAnswers
+        this.setState(
+          {
+            lives: prevProps.lives - 1,
+            questionIndex: prevProps.questionIndex + 1,
+            userAnswers: prevProps.userAnswers.concat(answer),
+          },
+          () => {
+            if (this.state.lives === 0) {
+              this.props.endGame(
+                this.state.score,
+                this.state.questions.slice(0, this.state.questionIndex),
+                this.state.userAnswers
+              )
+            }
+          }
         )
-      }
+      })
     }
     this._getQuestions()
+    this.setState({ showIndicator: true })
+    setTimeout(() => {
+      this.setState({ showIndicator: false })
+    }, 1000)
   }
 
   _onSkipHandler = (answer: string) => {
@@ -72,7 +78,7 @@ class Survival extends Component<Props, State> {
         this.setState({
           questionIndex: prevProps.questionIndex + 1,
           remainingSkips: prevProps.remainingSkips - 1,
-          userAnswers: prevProps.userAnswers.concat(answer),
+          userAnswers: prevProps.userAnswers.concat(''),
         })
       })
     }
@@ -92,8 +98,7 @@ class Survival extends Component<Props, State> {
 
   _getSessionToken = () => {
     getSessionToken().then((token) => {
-      this.setState({ token: token })
-      this._getQuestions()
+      this.setState({ token: token }, this._getQuestions)
     })
   }
 
@@ -116,6 +121,21 @@ class Survival extends Component<Props, State> {
           <Lives lives={this.state.lives}></Lives>
         </>
       )
+    if (this.state.showIndicator) {
+      console.log(this.state.userAnswers[this.state.questionIndex - 1])
+      console.log(this.state.questions.slice()[this.state.questionIndex - 1].answers.filter((ans) => ans.isCorrect)[0])
+      game = (
+        <div className={classes.wrapper}>
+          <AnswerIndicator
+            isCorrect={
+              this.state.userAnswers[this.state.questionIndex - 1] ===
+              this.state.questions.slice()[this.state.questionIndex - 1].answers.filter((ans) => ans.isCorrect)[0]
+                .answer
+            }
+          />
+        </div>
+      )
+    }
     return game
   }
 }

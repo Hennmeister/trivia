@@ -5,6 +5,7 @@ export interface RequiredGameState {
   questionsRequested: boolean
   userAnswers: string[]
   token: string
+  showIndicator: boolean
 }
 
 export interface RequiredGameProps {
