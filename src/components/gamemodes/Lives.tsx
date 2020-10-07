@@ -1,5 +1,4 @@
 import classes from './gamemodes.module.css'
-import { throws } from 'assert'
 import React, { Component } from 'react'
 
 interface Props {

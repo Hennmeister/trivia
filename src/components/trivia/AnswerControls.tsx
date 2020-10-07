@@ -16,7 +16,7 @@ interface State {
 class AnswerControls extends Component<Props, State> {
   render() {
     let { question, onSubmitHandler, onSkipHandler, isSkipDisabled } = this.props
-    let skipButtonClasses = this.props.isSkipDisabled ? [classes.skip, classes.disabled] : [classes.skip]
+    let skipButtonClasses = isSkipDisabled ? [classes.skip, classes.disabled] : [classes.skip]
     const answerButtons = question.answers.map((ans) => (
       <button onClick={() => onSubmitHandler(ans.isCorrect, ans.answer)}>{ans.answer}</button>
     ))
@@ -24,10 +24,10 @@ class AnswerControls extends Component<Props, State> {
       <div>
         {answerButtons}
         <button
-          disabled={this.props.isSkipDisabled}
+          disabled={isSkipDisabled}
           className={skipButtonClasses.join(' ')}
           onClick={() => {
-            this.props.onSkipHandler(question.answers.filter((ans) => ans.isCorrect)[0].answer)
+            onSkipHandler(question.answers.filter((ans) => ans.isCorrect)[0].answer)
             this.setState({ inputValue: '' })
           }}
         >
