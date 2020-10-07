@@ -11,6 +11,7 @@ interface Props {
   questions: Question[]
   answers: string[]
   restart: () => void
+  isDoneQuestions: boolean
 }
 interface State {}
 
@@ -28,7 +29,9 @@ export default class GameOver extends Component<Props, State> {
       <>
         <Title>Trivia!</Title>
         <div className={classes.gameOverModel}>
-          <text className={classes.gameOverText}>Game Over</text>
+          <text className={classes.gameOverText}>
+            {this.props.isDoneQuestions ? 'Answered All Questions in Category!' : 'Game Over'}
+          </text>
           <text className={classes.score}>Score: {this.props.score}</text>
           <div className={classes.questionsWrapper}>{questions}</div>
           <text className={classes.gameSettings}>

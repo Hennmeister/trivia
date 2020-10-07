@@ -29,9 +29,10 @@ export const makeQuestionRequest = async (categoryId: number, token: string) => 
   let questions: Question[] = []
   return await getQuestionRequest(categoryId, token)
     .then((data) => {
+      if (data.response_code === 4) {
+        return []
+      }
       let questions_data = data.results
-
-      let { response_code }: { response_code: number } = data
 
       for (let i = 0; i < 10; i++) {
         let answers: Answer[] = [

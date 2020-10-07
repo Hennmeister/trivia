@@ -10,7 +10,7 @@ import { makeQuestionRequest, getSessionToken } from '../../gameUtils'
 import AnswerIndicator from '../UI/AnswerIndicator'
 
 interface Props extends RequiredGameProps {
-  endGame: (score: number, questions: Question[], answers: string[]) => void
+  endGame: (score: number, questions: Question[], answers: string[], isDoneCategory: boolean) => void
 }
 
 interface State extends RequiredGameState {}
@@ -67,6 +67,14 @@ class TimeRace extends Component<Props, State> {
       this.setState({ questionsRequested: true })
       makeQuestionRequest(this.props.categoryId, this.state.token)
         .then((newQuestions) => {
+          if ((newQuestions as Question[]).length === 0) {
+            this.props.endGame(
+              this.state.score,
+              this.state.questions.slice(0, this.state.questionIndex),
+              this.state.userAnswers,
+              true
+            )
+          }
           let copy: Question[] = [...this.state.questions]
           copy = copy.concat(newQuestions as Question[])
           this.setState({ questions: copy, questionsRequested: false })
@@ -120,7 +128,8 @@ class TimeRace extends Component<Props, State> {
             this.props.endGame(
               this.state.score,
               this.state.questions.slice(0, this.state.questionIndex),
-              this.state.userAnswers
+              this.state.userAnswers,
+              false
             )
           }
         ></Timer>

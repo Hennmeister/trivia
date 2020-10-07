@@ -17,6 +17,7 @@ interface State {
   score: number
   questions: Question[]
   answers: string[]
+  isDoneCategory: boolean
 }
 
 class GamemodeManager extends Component<Props, State> {
@@ -25,10 +26,17 @@ class GamemodeManager extends Component<Props, State> {
     score: 0,
     questions: [],
     answers: [],
+    isDoneCategory: false,
   }
 
-  endGame = (score: number, questions: Question[], answers: string[]) => {
-    this.setState({ isGameOver: true, score: score, questions: questions, answers: answers })
+  endGame = (score: number, questions: Question[], answers: string[], isDoneCategory: boolean) => {
+    this.setState({
+      isGameOver: true,
+      score: score,
+      questions: questions,
+      answers: answers,
+      isDoneCategory: isDoneCategory,
+    })
   }
 
   render() {
@@ -51,6 +59,7 @@ class GamemodeManager extends Component<Props, State> {
             questions={this.state.questions}
             answers={this.state.answers}
             restart={this.props.restartGame}
+            isDoneQuestions={this.state.isDoneCategory}
           />
         ) : (
           mode
